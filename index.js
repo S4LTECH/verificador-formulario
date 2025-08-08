@@ -1,5 +1,7 @@
 const express = require('express');
+const chromium = require('chrome-aws-lambda'); // <-- novo
 const puppeteer = require('puppeteer-core');
+
 const app = express();
 
 app.get('/verificar-form', async (req, res) => {
@@ -8,9 +10,9 @@ app.get('/verificar-form', async (req, res) => {
 
   try {
     const browser = await puppeteer.launch({
-      headless: true,
-      executablePath: '/opt/render/project/.render/chrome/opt/google/chrome/google-chrome',
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: chromium.args,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
     });
 
     const page = await browser.newPage();
