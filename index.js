@@ -1,5 +1,5 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');  // trocar aqui
 const app = express();
 
 app.get('/verificar-form', async (req, res) => {
@@ -8,10 +8,10 @@ app.get('/verificar-form', async (req, res) => {
 
   try {
     const browser = await puppeteer.launch({
-       headless: "new",
-       executablePath: "/usr/bin/google-chrome",
-       args: ['--no-sandbox', '--disable-setuid-sandbox']
-  });
+      headless: true,
+      executablePath: '/usr/bin/google-chrome',  // caminho do chrome no Render
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 10000 });
 
