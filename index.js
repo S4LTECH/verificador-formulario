@@ -1,5 +1,5 @@
 const express = require('express');
-const puppeteer = require('puppeteer-core'); // usando puppeteer-core
+const puppeteer = require('puppeteer-core');
 const app = express();
 
 app.get('/verificar-form', async (req, res) => {
@@ -8,11 +8,10 @@ app.get('/verificar-form', async (req, res) => {
 
   try {
     const browser = await puppeteer.launch({
-       headless: true,
-       executablePath: '/usr/bin/chromium-browser', // <- Caminho correto
-       args: ['--no-sandbox', '--disable-setuid-sandbox']
+      headless: true,
+      executablePath: '/opt/render/project/.render/chrome/opt/google/chrome/google-chrome',
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
-
 
     const page = await browser.newPage();
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 10000 });
@@ -27,7 +26,7 @@ app.get('/verificar-form', async (req, res) => {
     }
 
   } catch (e) {
-    console.error("Erro:", e);
+    console.error(e);
     return res.status(500).send("Erro ao acessar o formulário.");
   }
 });
