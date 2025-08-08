@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Instalar o Chromium
-apt-get update && apt-get install -y chromium
+# Instala Chromium
+apt-get update && apt-get install -y chromium-browser
 
-# Rodar a aplicação Node.js
+# Inicia a aplicação
 node index.js
